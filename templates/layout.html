@@ -61,24 +61,33 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav">
+            {% if '/' == request.path %}
           <li class="nav-item active mr-3">
-            <a class="nav-link" href="/">Home</a>
+              {% else %}
+              <li class="nav-item mr-3">
+            {% endif %}
+         {% if 'about' in request.path %}
+          <li class="nav-item active mr-3">
+              {% else %}
+              <li class="nav-item mr-3">
+            {% endif %}
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
           </li>
           <li class="nav-item mr-3">
-            <a class="nav-link" href="about">About</a>
+            <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
           <li class="nav-item mr-3">
-            <a class="nav-link" href="listings">Featured Listings</a>
+            <a class="nav-link" href="{% url 'listings' %}">Featured Listings</a>
           </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mr-3">
-            <a class="nav-link" href="register.html">
+            <a class="nav-link" href="register">
               <i class="fas fa-user-plus"></i> Register</a>
           </li>
           <li class="nav-item mr-3">
-            <a class="nav-link" href="login.html">
+            <a class="nav-link" href="login">
               <i class="fas fa-sign-in-alt"></i>
 
               Login</a>
