@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>BT Real Estate {% block title %} {% endblock %}</title>
     {% load static %}
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/all.css' %}">
@@ -91,6 +91,26 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+             <li
+                    {% if 'dashboard' in request.path %}
+                        class="nav-item active mr-3"
+                    {% else %}
+                        class="nav-item mr-3"
+                    {% endif %}
+            >
+                 <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+             </li>
+            <li class="nav-item mr-3">
+                <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <form action="{% url 'logout' %}" id="logout" method="post">
+                    {% csrf_token %}
+                    <input type="hidden">
+                </form>
+            </li>
+        {% else %}
           <li
                     {% if 'register' in request.path %}
                         class="nav-item active mr-3"
@@ -111,6 +131,7 @@
             <a class="nav-link" href="{% url 'login' %}">
               <i class="fas fa-sign-in-alt"></i> Login</a>
           </li>
+        {% endif %}
         </ul>
       </div>
     </div>
